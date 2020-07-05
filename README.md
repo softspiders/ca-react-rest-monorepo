@@ -4,7 +4,7 @@
     </a>
 </div>
 
-## Client application starter on the Clean Architecture
+## Client application starter on the Clean Architecture in monorepo
 
 It is the client part of the [Fullstack counter-app starter on React in TypeScript that follows Clean Architecture principles](https://github.com/softspiders/clean-architecture-counter-starters/tree/clean-architecture-counter-react-hooks-fullstack-jest-ts-starter).
 
@@ -24,6 +24,7 @@ It is the client part of the [Fullstack counter-app starter on React in TypeScri
 - jest
 - jest-fetch-mock
 - mdx-deck
+- monorepo
 - react
 - react-hooks
 - react-testing-library
