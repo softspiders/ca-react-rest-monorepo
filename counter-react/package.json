@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "preinstall": "cd ../counter-core && npm i",
-    "prestart": "cd ../counter-core && npm run build",
+    "preinstall": "cd ../counter-core && npm i && cd ../counter-rest && npm i",
+    "postinstall": "cd ../counter-core && npm run build && cd ../counter-rest && npm run build ",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -17,6 +17,7 @@
     "@types/react": "16.9.36",
     "@types/react-dom": "16.9.8",
     "counter-core": "file:../counter-core",
+    "counter-rest": "file:../counter-rest",
     "cross-fetch": "^3.0.4",
     "dotenv": "^8.2.0",
     "react": "^16.9.0",

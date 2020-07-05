@@ -1,14 +1,10 @@
 import {
-  CounterResetRestGateway,
-  CounterIncrementRestGateway
-} from './infrastructure/rest/gateways'
-
-import {
   CounterIncrement,
   CounterIncrementIn,
   CounterReset,
   CounterResetIn,
 } from 'counter-core'
+import { CounterIncrementRestGateway, CounterResetRestGateway } from 'counter-rest'
 
 export class AppFactory {
   private readonly counterIncrementIn: CounterIncrementIn
