@@ -1,0 +1,42 @@
+{
+  "name": "counter-rest",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "preinstall": "cd ../counter-core && npm i",
+    "build": "tsc",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "@types/node": "12.7.3",
+    "counter-core": "file:../counter-core",
+    "cross-fetch": "^3.0.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.2.0",
+    "@typescript-eslint/parser": "^2.2.0",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^26.1.0",
+    "jest-fetch-mock": "^3.0.3",
+    "jest-mock-extended": "^1.0.9",
+    "prettier": "^1.18.2",
+    "ts-jest": "^26.1.1",
+    "typescript": "3.9.5"
+  },
+  "keywords": [
+    "adapter",
+    "clean-architecture",
+    "jest",
+    "rest",
+    "starter",
+    "typescript"
+  ],
+  "author": "https://github.com/AlexanderLapygin",
+  "license": "MIT"
+}
