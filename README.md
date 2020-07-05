@@ -1,6 +1,6 @@
 <div align="center">
     <a href="https://github.com/softspiders/softspiders">
-      <img src="./diagrams/sslogo-from-github-20.png"/>
+      <img src="./images/sslogo-from-github-20.png"/>
     </a>
 </div>
 
