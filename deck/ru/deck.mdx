@@ -1,0 +1,1117 @@
+import { Image, Notes, Head } from "mdx-deck";
+
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+
+import {
+  vsDark as naiveTheme,
+  nightOwl as smartTheme
+} from "@code-surfer/themes"
+
+
+import myTheme from './lib/theme'
+export const theme = myTheme
+
+import bicycleVsTrain from "./diagrams/bicycleVsTrain.jpg";
+
+import caLayersDomain from "./diagrams/caLayersDomain.svg";
+import caLayersEntities from "./diagrams/caLayersEntities.svg";
+import caLayersUseCases from "./diagrams/caLayersUseCases.svg";
+import caLayersAdapters from "./diagrams/caLayersAdapters.svg";
+import caLayersInfrastructure from "./diagrams/caLayersInfrastructure.svg";
+import caLayersUsual from "./diagrams/caLayersUsual.svg";
+import caLayersAbstract from "./diagrams/caLayersAbstract.svg";
+import caLayersAbstract1 from "./diagrams/caLayersAbstract1.svg";
+
+import packagesClient0 from "./diagrams/packagesClient0.svg";
+import packagesClient1 from "./diagrams/packagesClient1.svg";
+import packagesClient from "./diagrams/packagesClient.svg";
+import packages from "./diagrams/packages.svg";
+import packagesDependencies from "./diagrams/packagesDependencies.svg";
+import packagesDependenciesFlowControl from "./diagrams/packagesDependenciesFlowControl.svg";
+
+import layerModule from "./diagrams/layerModule.svg";
+import layerModule1 from "./diagrams/layerModule1.svg";
+import layerModule2 from "./diagrams/layerModule2.svg";
+
+import caLayerModulesBase0 from "./diagrams/caLayerModulesBase0.svg";
+import caLayerModulesBase from "./diagrams/caLayerModulesBase.svg";
+import caLayerModulesBaseRequired from "./diagrams/caLayerModulesBaseRequired.svg";
+import caLayerModulesBase1 from "./diagrams/caLayerModulesBase1.svg";
+import caLayerModulesBase2 from "./diagrams/caLayerModulesBase2.svg";
+
+import counterResetModule from "./diagrams/CounterResetModule.svg";
+import counterResetModuleImplementation from "./diagrams/CounterResetModuleImplementation.svg";
+
+import counterIncrementModuleImplementation from "./diagrams/CounterIncrementModuleImplementation.svg";
+import counterIncrementRestGateway from "./diagrams/CounterIncrementRestGateway.svg";
+import useIncrementPresenter from "./diagrams/useIncrementPresenter.svg";
+
+<Head>
+  <title>Стартер для Чистой Архитектуры</title>
+</Head>
+
+---
+
+# Как смотреть эту презентацию
+
+<Notes>
+
+Как смотреть эту презентацию
+
+</Notes>
+
+---
+
+<p style="font-size: 80px; text-align:center;">
+Для самостоятельного просмотра презентации включите режим <i>Заметки докладчика</i>:
+</p>
+<p style="font-size: 80px; padding-bottom:40px;">
+    <ul>
+        <li><i>Alt+P</i> - на Windows</li>
+        <li><i>Option+P</i> - на Mac</li>
+    </ul>
+</p>
+
+<Notes>
+
+Теперь вы видите сопровождающий текст.
+
+При необходимости используйте клавиши:
+- *F11* - включение/выключение полноэкранного режима
+- Для настройки размера шрифта:
+  - *Ctrl & '-/+'* - на Windows
+  - *Command & '-/+'* - на Mac
+- Для навигации используйте стрелки
+
+При работе над этой презентацией продолжались эксперименты по созданию самодостаточного информационного продукта, своего
+рода презентации-статьи, когда она изначально создаётся не только для озвучивания докладчиком, но и для полноценного
+восприятия - при индивидуальном просмотре-чтении.
+
+Чтобы это стало возможным, слайды сопровождаются достаточно подробными *заметками докладчика*, адресованными не столько
+докладчику, сколько заинтересованному читателю.
+
+Презентация развёрнута на надёжном хостинге и доступна онлайн в режиме 24*7. Тот, кому она покажется интересной, сможет
+её пересмотреть в удобном для себя темпе когда угодно и сколько угодно.
+
+Насколько это получилось, судить вам.
+
+</Notes>
+
+---
+
+<p style="font-size: 180px; text-align:center; padding-bottom:140px;">
+Стартер для
+<br/>
+Чистой Архитектуры
+</p>
+
+<Notes>
+
+Это первая из серии презентаций о стартере для клиентских приложений, разрабатываемых на принципах *Чистой Архитектуры*.
+
+Предметная область и, соответственно, бизнес-логика стартера предельно минималистичны - это обычный счётчик с функциями
+инкремента и сброса. Но при всей своей минималистичности стартер представлен fullstack-решением, в котором клиентская
+часть взаимодействует с persistence-сервисом (назовём это так) по REST API и имеет несколько аспектов, требующих
+отдельного рассмотрения.
+ 
+В этой презентации главное внимание уделяется *Правилу Зависимостей* *Чистой Архитектуры*, в частности, тому, как оно
+может быть представлены в программном коде, в данном случае - на *TypeScript*. 
+
+</Notes>
+
+---
+
+<p style="font-size: 100px; text-align:center; padding-bottom:80px;">
+Для кого эта презентация ?
+</p>
+
+<Notes>
+
+На кого рассчитана презентация, какова её целевая аудитория ?
+
+От аудитории не требуется наличия предварительных знаний ни о *Чистой Архитектуре*, ни о *Правиле Зависимостей*. 
+
+Хотя, конечно, присутствие хотя бы минимального понимания существа проблем, решаемых *Чистой Архитектурой* будет
+полезным.
+
+Полезным будет также и знакомство с материалом, изложенным в презентации [*О Принципе Инверсии
+Зависимостей*](https://csb-9kg5y-8d0n41fyp.now.sh).
+
+Для тех, кому тема совсем незнакома, сформулируем кратко, немного перефразировав Википедию:
+
+*Использование принципов Чистой Архитектуры способствует созданию такой программной системы, которую будет легко
+поддерживать и расширять в течение долгого времени.*
+
+Пользовательский интерфейс стартера реализован на *React*, но для понимания того, о чём здесь будет говориться, знания
+*React* не требуется.   
+
+</Notes>
+
+---
+
+<p style="font-size: 100px; text-align:center; padding-bottom:80px;">
+<i>Чистая Архитектура</i>
+<br/> 
+и производительность
+</p>
+
+<Notes>
+
+Как ни парадоксально, но по большому счёту главная тема *Чистой Архитектуры* это производительность.
+
+При этом, конечно, нужно понимать, какую производительность мы измеряем, правильно выбирать условия её измерения и очень важно
+избегать некорректных сравнений.
+
+...
+</Notes>
+
+---
+
+<Image src={bicycleVsTrain} style={{ width: '60vw', height: '70vh'}}/>
+
+<Notes>
+...
+
+Например, сравнивать скорость разработки на хакатоне и разработки на принципах *Чистой Архитектуры* - всё равно что
+сравнивать скорость спринтера и стайера, велосипеда и поезда.
+
+*Хакатон*, если кто не знает, это своего рода спорт для программистов, предполагающий разработку программного решения в
+условиях ограниченного времени, обычно в пределах одной-двух недель. Вот только его неправильно называют *хакерским
+марафоном*. Это не марафон, конечно, а спринт.
+
+Так вот, при старте с места велосипед без вопросов выиграет у поезда на дистанции 100 метров. Выиграет и на 200, и на
+1000.
+
+Но уже на 10 км у велосипеда просто не будет никаких шансов.
+
+...
+</Notes>
+
+---
+<Image src={bicycleVsTrain} style={{ width: '60vw', height: '70vh'}}/>
+
+*Чистая Архитектура* - для "игры в долгую"
+
+<Notes>
+...
+
+*Чистая Архитектура* предназначена для серьёзных масштабируемых post-MVP-решений, когда начинается "игра в долгую".
+
+*Чистая Архитектура* повышает скорость не спринтера, а стайера, масштабируя скорость разработки на длинных дистанциях.
+
+При игре в долгую всё становится на свои места. Чем больше функциональность разрастается и приобретает серьёзный
+масштаб, тем больше правила *Чистой Архитектуры* начинают выигрывать - вначале в скорости разработки, затем - в скорости
+старта - особенно на фронтенде, а затем "грязные" конкуренты попросту исчезают.
+
+</Notes>
+
+---
+
+# *Чистая Архитектура* это просто
+
+<Notes>
+
+*Чистая Архитектура* это очень просто. Из всех её принципов наиболее значимых всего два, и главный из них будет здесь
+рассмотрен.
+
+После этого тревожные ожидания покинут тех, у кого они были, и многим наверняка захочется сразу же применить полученные
+знания на практике. 
+
+</Notes>
+
+---
+
+<p style="font-size: 100px; text-align:center; padding-bottom:140px;">
+Ключевые свойства стартера
+</p>
+
+<Notes>
+
+Ключевые свойства стартера:
+
+... 
+</Notes>
+
+---
+
+- *Чистая Архитектура*
+
+<Notes>
+
+*Чистая Архитектура* - главное, для чего создавалось это приложение-стартер.
+
+Но из всего множества правил *Чистой Архитектуры* в этой презентации будет рассмотрено только *Правило Зависимостей*,
+хотя оно не изобретение *Чистой Архитектуры*. По сути оно присутствовало и в [*Гексагональной
+Архитектуре*](https://fideloper.com/hexagonal-architecture), и в
+[*Луковой*](https://www.thinktocode.com/2018/08/16/onion-architecture/).
+
+В общих чертах стартер отражает актуальный взгляд автора на то, каким примерно должно быть frontend-приложение,
+разрабатываемое на принципах *Чистой Архитектуры*.
+
+</Notes>
+
+---
+
+- *Чистая Архитектура*
+- *React*
+
+<Notes>
+
+В качестве UI-фреймворка используется *React*.
+
+На это несколько причин, не самая последняя из которых - популярность фреймворка среди разработчиков.
+
+</Notes>
+
+---
+
+- *Чистая Архитектура*
+- *React*
+- *TypeScript*
+
+<Notes>
+
+Код написан на *TypeScript*, что также обусловлено его популярностью этого языка.
+
+*TypeScript* уже давно имеет многочисленных сторонников среди frontend-разработчиков, а последнее время начинает
+завоёвывать позиции уже и на backend.
+
+</Notes>
+
+---
+
+- *Чистая Архитектура*
+- *React*
+- *TypeScript*
+- *React Testing Library*
+
+<Notes>
+
+Для модульного тестирования в стартере используется библиотека [Кента Доддса](https://kentcdodds.com/) [*React Testing
+Library*](https://testing-library.com/docs/react-testing-library/intro), которая за последнее время получила уже вполне
+широкое признание.
+
+</Notes>
+
+---
+
+- *Чистая Архитектура*
+- *React*
+- *TypeScript*
+- *React Testing Library*
+- *REST API*
+
+<Notes>
+
+Для хранения значения счётчика используется внешний сервис, взаимодействие с которым осуществляется по REST API.  
+
+</Notes>
+
+---
+
+- *Чистая Архитектура*
+  - <i style="color:#33FF33">Single Responsibility Principle (SRP)</i>
+  - <i style="color:#33FF33">Open-Closed Principle (OCP)</i>
+  - <i style="color:#33FF33">Liskov Substitution Principle (LSP)</i>
+  - <i style="color:#33FF33">Interface Segregation Principle (ISP)</i>
+  - <i style="color:#33FF33">Dependency Inversion Principle (DIP)</i>
+
+<Notes>
+
+Из принципов *Чистой Архитектуры*, а как известно, это принципы *SOLID*, в стартере представлены, все,
+...
+</Notes>
+
+---
+
+- *Чистая Архитектура*
+  - <i style="color:#33FF33">Single Responsibility Principle (SRP)</i>
+  - <i style="color:#33FF33">Open-Closed Principle (OCP)</i>
+  - <i style="color:#FF0000">Liskov Substitution Principle (LSP)</i>
+  - <i style="color:#33FF33">Interface Segregation Principle (ISP)</i>
+  - <i style="color:#33FF33">Dependency Inversion Principle (DIP)</i>
+
+<Notes>
+...
+
+кроме *Liskov
+Substitution Principle*, для применения которого необходимо, как минимум, присутствие иерархии типов.
+Но минималистичность предлагаемой предметной области в данном случае не позволяет это сделать.
+
+Отдельным интересным вопросом является обоснование необходимости и достаточности принципов *SOLID*. Например, существуют
+[небезосновательные мнения](https://accu.org/index.php/journals/1957), к которым склонен присоединиться и автор, что эти
+принципы не лишены избыточности.
+
+Какие-то из них, такие, как *SRP*, *DIP* и *LSP* - главные, первичные, в то время как остальные - производные, вторичные,
+присутствие которых может быть оправдано понятным желанием получить красивую аббревиатуру.
+
+Но здесь не об этом.  
+
+</Notes>
+
+---
+
+# Словарь используемых терминов
+
+<Notes>
+
+Притом что и в этой презентации, и в коде самого стартера используются термины, вполне традиционные для *Чистой
+Архитектуры*, они могут быть непривычны для тех, кто только начинает знакомиться с этой областью, поэтому нуждаются в
+отдельных пояснениях.
+
+Прекрасный разбор терминов и понятий *Чистой Архитектуры*, разрешающий ряд недоразумений, сделан в работе [*Заблуждения
+Clean Architecture*](https://habr.com/ru/company/mobileup/blog/335382/).
+
+Перед тем, как перейти к дальнейшему изложению, не погружаясь глубоко в детали и воспользовавшись результатами этой
+работы, оставим здесь только то, что необходимо для дальнейшего изложения в виде краткого словаря используемых терминов.
+Каждый из этих терминов будет снабжён соответствующими пояснениями.
+
+</Notes>
+
+---
+
+<CodeSurferColumns themes={[myTheme, myTheme]}>
+
+<Step>
+
+- *Domain*
+
+<Image src={caLayersDomain} style={{ width: '100vw', height: '101vh'}}/>
+
+</Step>
+
+</CodeSurferColumns>
+
+<Notes>
+
+*Domain* - Модель предметной области.
+
+Является самой стабильной, сущностной составляющей любого программного продукта. 
+
+В понятиях *Чистой Архитектуры* *Domain* означает то же самое, что *бизнес-логика*. Как правило, подразделяется на два
+слоя: внутренний - *Entities* и внешний - *Use Cases*.
+
+</Notes>
+
+---
+
+<CodeSurferColumns themes={[myTheme, myTheme]}>
+
+<Step>
+
+- *Domain*
+  - ***Entities***
+
+<Image src={caLayersEntities} style={{ width: '100vw', height: '101vh'}}/>
+
+</Step>
+
+</CodeSurferColumns>
+
+<Notes>
+
+*Entities* - иногда понимаются буквально, как сущности некоторой предметной области, иногда, как слой *бизнес-логики*,
+разделяемый несколькими программными продуктами: системами, приложениями, сервисами.
+
+</Notes>
+
+---
+
+<CodeSurferColumns themes={[myTheme, myTheme]}>
+
+<Step>
+
+- *Domain*
+  - ***Entities***
+  - ***Use Cases***
+
+<Image src={caLayersUseCases} style={{ width: '100vw', height: '101vh'}}/>
+
+</Step>
+
+</CodeSurferColumns>
+
+<Notes>
+
+*Use Case* - одно из ключевых понятий архитектуры системы, в частности, с ним тесно связан *Принцип Единой
+Ответственности* (*SRP*), который, в свою очередь, является одним из ключевых принципов *SOLID* и, соответственно,
+*Чистой Архитектуры*.
+
+</Notes>
+
+---
+
+<CodeSurferColumns themes={[myTheme, myTheme]}>
+
+<Step>
+
+- *Domain*
+  - *Entities*
+  - *Use Cases*
+- *Adapters* 
+  - *Presenters*
+  - *Gateways*
+
+<Image src={caLayersAdapters} style={{ width: '100vw', height: '101vh'}}/>
+
+</Step>
+
+</CodeSurferColumns>
+
+<Notes>
+
+*Adapters* - в оригинальной диаграмме *Чистой Архитектуры* для адаптеров выделен отдельный слой под названием
+*Interface Adapters*.
+
+*Адаптер* - вспомогательный программный модуль, согласующий интерфейсы двух других модулей. В контексте
+*Чистой Архитектуры* адаптеры обычно служат для согласования интерфейсов внутреннего и внешнего архитектурных слоёв.
+Типовым случаем является согласование интерфейсов фреймворков и внешних сервисов с интерфейсами *бизнес-логики*.
+
+В коде предлагаемого стартера используются *адаптеры* двух видов:  *презентеры*(*presenters*) и *шлюзы*(*gateways*).
+
+- *Презентеры* - по сути являются адаптерами UI-фреймворков для модулей бизнес-логики.
+
+- *Шлюзы* - адаптеры внешних сервисов, используемых бизнес-логикой.
+В сегодняшних системах доступ к внешним сервисам чаще всего обеспечивается через REST API. Наиболее распространённым
+видом таких сервисов является сервис доступа к базе данных. Иногда в таких случаях вместо *Gateway* используется термин
+*Repository*.
+
+</Notes>
+
+---
+
+<CodeSurferColumns themes={[myTheme, myTheme]}>
+
+<Step>
+
+- *Domain*
+  - *Entities*
+  - *Use Cases*
+- *Adapters* 
+  - *Presenters*
+  - *Gateways*
+- ***Infrastructure***
+  - ***DB***
+  - ***UI***
+
+<Image src={caLayersInfrastructure} style={{ width: '100vw', height: '101vh'}}/>
+
+</Step>
+
+</CodeSurferColumns>
+
+<Notes>
+
+*Infrastructure* - инфраструктура - всё то, что находится во внешнем слое - слое, который следует за *Interface
+Adapters*.
+
+Типичными представителями *Инфраструктуры* являются базы данных (*DB*) и пользовательские интерфейсы (*UI*) со своими
+фреймворками.
+
+...
+</Notes>
+
+---
+
+<Image src={caLayersInfrastructure} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+...
+
+На этом месте стоит сделать небольшое отступление для того, чтобы напомнить, в чём состоит *Правило Зависимостей*, и для
+чего оно нужно.
+
+...
+</Notes>
+
+---
+
+<Image src={caLayersUsual} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+...
+
+На диаграммах *Правило Зависимостей* обычно изображается стрелками, показывающими направление зависимостей: от
+инфраструктурной периферии - к смысловому центру, которым всегда является бизнес-логика (на картинке - *Entities* + *Use
+Cases*). 
+
+Во избежание недоразумений необходимо уточнить, что под зависимостями в данном случае подразумеваются только
+*зависимости времени разработки* - *design-time*-зависимости.
+
+</Notes>
+
+---
+
+<p style="font-size: 100px; text-align:left; padding:100px;">
+    Более значимые свойства системы не должны зависеть от менее значимых.
+    <p style="font-size: 50px; text-align:right; color:#addb67;"><i>Чистая Архитектура - Правило Зависимостей</i></p>
+</p>
+
+
+<Notes>
+
+Суть *Правила Зависимостей* очень проста, она состоит в следующем:
+
+*Более значимые свойства системы не должны зависеть от менее значимых.*
+
+Именно это правило в наибольшей степени придаёт системе живучесть и устойчивость к изменениям в долгосрочном периоде.
+
+</Notes>
+
+---
+
+<Image src={caLayersAbstract1} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+*Чистая Архитектура* никак не регламентирует ни названия слоёв, ни их число. Те, слои, которые обычно показывают на
+диаграммах, иллюстрируют просто самый типовой пример, не более того.
+
+Но в любой системе всегда есть две составляющие: модель предметной области и инфраструктура.
+
+Искусство "чистого" архитектора заключается в декомпозиции этих составляющих на слои, соответствующие решаемой задаче. 
+
+</Notes>
+
+---
+
+<Image src={caLayersAbstract} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+*Правило зависимостей* с самого начала заставляет думать о важных вещах: о том, где и как провести границу между
+сущностями предметной области и сценариями бизнес-логики, между бизнес-логикой продукта и инфраструктурой, включающей
+библиотеки, фреймворки, базы данных и т.п.
+
+При этом свойства, соотношения значимости этих свойств в каждой конкретной системе могут быть свои, и, в первую очередь,
+эти соотношения должны отвечать задачам, которую эта система решает.
+
+Неизменным остаётся только одно, как уже было сказано: *Более значимые свойства системы не должны зависеть от менее
+значимых.*
+
+</Notes>
+
+---
+
+# А если конкретно ? 
+
+<Notes>
+
+Дальнейшее изложение посвящено разбору конкретного приложения - тому, как нём обеспечивается соблюдение *Правила
+Зависимостей*.
+
+Начнём с UML-диаграмм.
+
+</Notes>
+
+---
+
+<Image src={packagesClient0} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+
+
+Здесь изображена структура директорий клиентского приложения, вполне обычная при разработке на принципах *Чистой
+Архитектуры*.
+
+- domain
+  - entities
+  - usecases
+- adapters
+  - presenters
+  - gateways
+- infrastructure
+  - ui
+
+Директории верхнего уровня соответствуют одноимённым слоям, за исключением дополнительной директории *Domain*,
+включающей директории-слои *Entities* и *Use Cases*.
+
+Это всего лишь один из возможных вариантов организации структуры. При наличии понимания назначения каждой директории,
+когда имена директорий понимаются недвусмысленно, их структуру можно строить по-разному.
+
+</Notes>
+
+---
+
+<Image src={packagesClient1} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+...
+
+Например, можно сделать её плоской, упразднив корневые директории и разместив оставшиеся на одном уровне, как на этом
+слайде.  
+
+Другими словами, в данном случае до тех пор, пока структура не будет определяться какими-то привходящими требованиями,
+например, при использовании кодогенератора, ориентированного на жёсткую структуру, приветствуется творческий подход.
+
+</Notes>
+
+---
+
+<Image src={packagesClient} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+Это клиентская часть приложения, обозначим её явно.
+
+</Notes>
+
+---
+
+<Image src={packages} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+Для полноты картины разместим на диаграмме и серверную часть, реализующую на REST API сервис хранения значения счётчика,
+например, на случай перезагрузки клиентского приложения.
+
+Отметим, что так же, как и *UI*, сервис, реализующий REST API, относится к инфраструктуре.
+
+</Notes>
+
+---
+
+<Image src={packagesDependencies} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+Обозначим design-time-зависимости в целом - на уровне слоёв и директорий.
+
+Они соответствуют известному *Правилу Зависимостей* *Чистой Архитектуры*: design-time-зависимости направлены от
+периферии (инфраструктуры) к центру.
+
+</Notes>
+
+---
+
+<Image src={packagesDependenciesFlowControl} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+И завершающим штрихом добавим линию потока управления (run-time-зависимостей) - от вершины и до дна стека - от действий
+пользователя до реакции сервиса на серверной стороне, которую не будем здесь детализировать.
+
+</Notes>
+
+---
+
+<Image src={layerModule} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+В последующем изложении будут использоваться понятия *provided-* и *consumed-*интерфейсов.
+*Provided-интерфейсы* - те, что реализуются - как-бы поставляются модулем, а *consumed* - те, что им используются,
+как-бы потребляются. И, чтобы совсем запутать (на самом деле нет) аудиторию, дальше по тексту *provided*-интерфейсы
+иногда будем называть *входными* поскольку через них в модуль входит поток управления, а *consumed* - *выходными*,
+поскольку через них поток управления из модуля *выходит*.
+
+На языке *UML* *Provided-* и *consumed-*интерфейсы обозначаются так называемой *socket-ball*-нотацией (иногда *ball* заменяют
+на *lollipop* - леденец).
+
+...
+</Notes>
+
+---
+
+<Image src={layerModule1} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+*Порты*, обозначаемые квадратами, размещаются на границах *модуля* и являются единственным средством взаимодействия
+внутренней части модуля - его реализации - с внешним миром.
+
+</Notes>
+
+---
+<Image src={layerModule2} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+Рассмотрим простую, быть может, несколько идеализированную организацию модуля архитектурного слоя.
+
+Такой модуль может находиться, например, в слое адаптеров, поскольку слой адаптеров точно имеет соседний внутренний слой -
+*Use Cases* - и соседний внешний слой - *Infrastructure*. 
+
+</Notes>
+
+---
+
+<Image src={caLayerModulesBase0} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+С учётом вышесказанного ещё более упрощённая диаграмма слоёв-модулей может выглядеть, как на этом слайде.
+
+</Notes>
+
+
+---
+
+<Image src={caLayerModulesBase} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+На этом слайде видно, что на первой половине стека - от *UI* до *Domain* design-time-зависимости направлены от
+*выходных* интерфейсов к *входным*, а на второй половине наоборот: от *входных* - к *выходным* - именно так в данном
+случае проявляет себя *Принцип Инверсии Зависимостей*.  
+ 
+</Notes>
+
+---
+
+<Image src={caLayerModulesBase1} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+Этот слайд показывает детализацию доменного слоя. 
+
+</Notes>
+
+---
+
+<Image src={caLayerModulesBase2} style={{ width: '102vw', height: '100vh'}}/>
+
+<Notes>
+
+На слайде показана ещё большая детализация - с прорисовкой содержимого слоёв *usecases* и *entities*.
+
+Таким же образом может быть детализирован каждый архитектурный слой, но это не входит в задачи данной презентации.
+
+</Notes>
+
+---
+
+# Как это выглядит в коде ?
+
+<Notes>
+
+Наконец, добрались до кода.
+
+</Notes>
+
+---
+
+<CodeSurferColumns themes={[myTheme, myTheme, myTheme]}>
+
+<Step>
+
+```ts 1,9:10,11:12,13[1] file=../../src/adapters/presenters/useIncrementPresenter.ts title="useIncrementPresenter"
+```
+
+```ts 1:11,13:14 file=../../src/domain/usecases/CounterIncrement.ts title="CounterIncrement"
+```
+
+```ts 1:2,5 file=../../src/adapters/gateways/CounterIncrementRestGateway.ts title="CounterIncrementRestGateway"
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+
+<Notes>
+
+На слайде без изъятий представлены исходники трёх модулей стартера - представителей двух соседних архитектурных слоёв.
+Эти модули показаны вместе, чтобы легче было увидеть их взаимосвязь по зависимостям.
+
+В центральном столбце размещён *CounterIncrement* - модуль бизнес-логики из слоя *Use Cases*.
+
+По краям - модули из одного и того же слоя - слоя адаптеров: слева - *useIncrementPresenter* - презентер для *React*,
+реализованный как *custom hook*. Справа - *CounterIncrementRestGateway* - шлюз доступа к внешнему сервису, сохраняющему
+и возвращающему текущее состояние счётчика.
+
+В начале каждого модуля находится самое главное: импорт, экспорт, интерфейсы и конструктор.
+
+У модулей выделены только строки, имеющие отношение к соблюдению *Правила Зависимостей*, которое, в свою очередь,
+обеспечивается правильной расстановкой операторов *export* и *import*.
+
+</Notes>
+
+---
+
+<p style="font-size: 70px; text-align:left; padding:100px;">
+    Модуль архитектурного слоя не должен ничего импортировать из модулей внешних по отношению к нему слоёв.
+    <br/>
+    При этом он импортирует из модулей внутренних слоёв и может импортировать из модулей своего слоя.
+    <p style="font-size: 50px; text-align:right; color:#addb67;"><i>Правило Зависимостей на языке программирования</i></p>
+</p>
+
+<Notes>
+
+*Правило Зависимостей*, переведённое на язык, поддерживающий модульность, каким, конечно, является и *TypeScript*,
+звучит следующим образом:
+
+*Модуль архитектурного слоя не должен ничего импортировать из модулей внешних по отношению к нему слоёв. При этом он
+импортирует из модулей внутренних слоёв и может импортировать из модулей своего слоя.*
+
+Рассмотрим вышеупомянутые модули с этой точки зрения.
+
+</Notes>
+
+---
+
+<CodeSurferColumns themes={[myTheme, myTheme]}>
+
+<Step>
+
+<Image src={counterIncrementModuleImplementation} style={{ width: '100vw', height: '100vh'}}/>
+
+```ts 1 file=../../src/domain/usecases/CounterIncrement.ts title="CounterIncrement"
+```
+
+</Step>
+
+<Step>
+
+<Image src={counterIncrementModuleImplementation} style={{ width: '100vw', height: '100vh'}}/>
+
+```ts 2:11 file=../../src/domain/usecases/CounterIncrement.ts title="CounterIncrement"
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+<Notes>
+
+Рассмотрим модуль *CounterIncrement*, находящийся в директории-слое *usecases*.
+
+Обратите внимание на первую строку - она содержит импорт класса *Counter* из слоя *entities*.
+С точки зрения *Правила Зависимостей* всё правильно: внешний слой *usecases* импортирует из внутреннего - из *entities*. 
+
+->
+
+В начале модуля размещены определения его *входного* и *выходного* интерфейсов, названных, соответственно,
+*CounterIncrementIn* и *CounterIncrementOut*.
+
+Оба этих интерфейса экспортируются, чтобы быть импортированы из слоя адаптеров: входной - из презентера, выходной - из
+шлюза.
+
+Интерфейс *CounterIncrementOut* является *требуемым* (*required*) интерфейсом для шлюза доступа к внешнему сервису, к
+рассмотрению которого сейчас переходим.
+
+</Notes>
+
+---
+
+<CodeSurferColumns themes={[myTheme, myTheme]}>
+
+<Step>
+
+<Image src={counterIncrementRestGateway} style={{ width: '100vw', height: '100vh'}}/>
+
+```ts 1 file=../../src/adapters/gateways/CounterIncrementRestGateway.ts title="CounterIncrementRestGateway"
+```
+
+</Step>
+
+
+<Step>
+
+<Image src={counterIncrementRestGateway} style={{ width: '100vw', height: '100vh'}}/>
+
+```ts 2,5 file=../../src/adapters/gateways/CounterIncrementRestGateway.ts title="CounterIncrementRestGateway"
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+<Notes>
+
+Модуль шлюза *CounterIncrementRestGateway* находится в слое *adapters*.
+
+В его первой строке, как и в только что рассмотренном *CounterIncrement*, импортируется класс *Counter* из слоя
+сущностей.
+
+Здесь можно обратить внимание на то, что импорт выполняется модулем шлюза хоть и из внутреннего, но не из соседнего
+слоя, перескакивая через слой *usecases*. Это проявление того, все слои бизнес-логики рассматриваются адаптерами как
+единое целое - *Domain*.
+Будем считать это нормой.
+
+->
+
+Во второй строке импортируется *выходной* и вдобавок *требуемый* интерфейс модуля с предыдущего слайда -
+*CounterIncrement*, являющегося *входным* для шлюза *CounterIncrementRestGateway*, который его благополучно реализует.
+
+</Notes>
+
+---
+
+<CodeSurferColumns themes={[myTheme, myTheme]}>
+
+<Step>
+
+<Image src={useIncrementPresenter} style={{ width: '100vw', height: '100vh'}}/>
+
+```ts file=../../src/adapters/presenters/useIncrementPresenter.ts title="useIncrementPresenter"
+```
+
+</Step>
+
+<Step>
+
+<Image src={useIncrementPresenter} style={{ width: '100vw', height: '100vh'}}/>
+
+```ts 1 file=../../src/adapters/presenters/useIncrementPresenter.ts title="useIncrementPresenter"
+```
+
+</Step>
+
+<Step>
+
+<Image src={useIncrementPresenter} style={{ width: '100vw', height: '100vh'}}/>
+
+```ts 1,9:10 file=../../src/adapters/presenters/useIncrementPresenter.ts title="useIncrementPresenter"
+```
+
+</Step>
+
+<Step>
+
+<Image src={useIncrementPresenter} style={{ width: '100vw', height: '100vh'}}/>
+
+```ts 2 file=../../src/adapters/presenters/useIncrementPresenter.ts title="useIncrementPresenter"
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+<Notes>
+
+В заключение рассмотрим адаптер пользовательского интерфейса - презентер *useIncrementPresenter*.
+
+Как и модуль шлюза, *useIncrementPresenter* также находится в слое *adapters*, но, в отличие от шлюза, поскольку
+реализован *React*-хуком, является не классом, а функцией.
+
+->
+
+В первой строке импортируется входной интерфейс *CounterIncrementIn* уже знакомого модуля *CounterIncrement* из слоя
+*usecases*.
+
+->
+
+Этот интерфейс в качестве аргумента передаётся в главную функцию модуля, чем осуществляется своеобразная *инъекция
+зависимости*.
+
+->
+
+Вторая строка импортирует всё то, что необходимое для взаимодействия с *React*.
+
+Но, как обещалось в самом начале, на *React*-специфичных деталях здесь останавливаться не будем.
+
+...
+</Notes>
+
+---
+
+<CodeSurferColumns themes={[myTheme, myTheme]}>
+
+<Step>
+
+<Image src={useIncrementPresenter} style={{ width: '100vw', height: '100vh'}}/>
+
+```ts 1:2 file=../../src/adapters/presenters/useIncrementPresenter.ts title="useIncrementPresenter"
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+<Notes>
+...
+
+Заметим лишь, что модуль любого адаптера своими импортами всегда одной ногой стоит во внешнем для себя слое (в данном
+случае *UI* *React*), а другой ногой - во внутреннем (в данном случае *usecases*).
+
+</Notes>
+
+---
+
+# На этом пока всё
+
+---
+
+# СПАСИБО ЗА ВНИМАНИЕ!
+
+---
+
+[Alexander Lapygin](https://github.com/AlexanderLapygin)
+
+---
+
+# Исходники этой презентации
+
+[https://github.com/softspiders/ca-react-rest-api-starter](https://github.com/softspiders/ca-react-rest-api-starter)
+
+---
+
+# Полезные материалы
+
+- [Презентация *О Принципе Инверсии Зависимостей*](https://csb-9kg5y-8d0n41fyp.now.sh)
+- [*Заблуждения Clean Architecture*](https://habr.com/ru/company/mobileup/blog/335382/)
+
+---
+
+<CodeSurferColumns themes={[naiveTheme, myTheme]}>
+
+<Step>
+
+<Image src={counterResetModule} style={{ width: '100vw', height: '100vh'}}/>
+
+```ts 1:3,5:10 file=../../src/domain/usecases/CounterReset.ts title="CounterReset"
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+
+<Notes>
+...
+
+То же самое - для модуля *CounterReset*
+
+</Notes>
+
+---
+
+<CodeSurferColumns themes={[myTheme, myTheme, myTheme]}>
+
+<Step>
+
+```ts 1,3:6 file=../../src/adapters/presenters/useResetPresenter.ts title="useResetPresenter"
+```
+
+```ts 1:3,5:10 file=../../src/domain/usecases/CounterReset.ts title="CounterReset"
+```
+
+```ts 1,4 file=../../src/adapters/gateways/CounterResetRestGateway.ts title="CounterResetRestGateway"
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+
+<Notes>
+
+В качестве примера приведём код *CounterReset* - модуля бизнес-логики - из слоя *usecases*.
+
+В начале модуля размещены определения *входного* и *выходного* интерфейсов модуля, названных, соответственно,
+*CounterResetIn* и *CounterResetOut*.
+
+Стоит отметить, что интерфейс *CounterResetOut* является *требуемым* (*required*) интерфейсом для адаптера из соседнего
+внешнего слоя.
+
+...
+
+Далее - за объявлением интерфейсов размещается реализация входного интерфейса, по сути - реализация модуля.
+
+</Notes>

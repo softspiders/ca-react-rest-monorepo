@@ -1,0 +1,90 @@
+{
+  "name": "ca-react-rest-api-starter",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "mdx-deck deck/ru/deck.mdx",
+    "start-app": "react-scripts start",
+    "build": "mdx-deck build deck/ru/deck.mdx",
+    "build-app": "react-scripts build",
+    "test": "react-scripts test",
+    "test-snapshot-update": "react-scripts test -u",
+    "test:coverage": "react-scripts test --watchAll=false --coverage"
+  },
+  "dependencies": {
+    "@types/jest": "25.2.3",
+    "@types/node": "12.7.3",
+    "@types/react": "16.9.36",
+    "@types/react-dom": "16.9.8",
+    "cross-fetch": "^3.0.4",
+    "dotenv": "^8.2.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "typescript": "3.9.5"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^7.10.1",
+    "@testing-library/jest-dom": "^5.10.0",
+    "@testing-library/react": "^10.2.1",
+    "@testing-library/react-hooks": "^3.3.0",
+    "@typescript-eslint/eslint-plugin": "^2.2.0",
+    "@typescript-eslint/parser": "^2.2.0",
+    "code-surfer": "3.1.1",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-config-react-app": "^5.0.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest-fetch-mock": "^3.0.3",
+    "mdx-deck": "3.0.10",
+    "prettier": "^1.18.2",
+    "react-test-renderer": "^16.9.0"
+  },
+  "keywords": [
+    "adapter",
+    "clean-architecture",
+    "counter-app",
+    "create-react-app",
+    "db",
+    "fullstack",
+    "ioc",
+    "jest",
+    "jest-fetch-mock",
+    "json-server",
+    "persistence",
+    "react",
+    "react-hooks",
+    "rest",
+    "starter",
+    "typescript"
+  ],
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!**/node_modules/**",
+      "!**/src/index.tsx",
+      "!**/src/serviceWorker.ts",
+      "!**/src/**/index.ts",
+      "!**/src/**/*.d.ts",
+      "not dead"
+    ],
+    "coverageReporters": [
+      "text"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "author": "https://github.com/AlexanderLapygin",
+  "license": "MIT"
+}
