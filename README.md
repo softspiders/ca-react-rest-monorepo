@@ -29,7 +29,6 @@ In separate browser tabs do:
 - clean-architecture
 - client
 - counter-app
-- dip
 - jest
 - jest-fetch-mock
 - monorepo
@@ -37,7 +36,6 @@ In separate browser tabs do:
 - react-hooks
 - react-testing-library
 - rest
-- srp
 - starter
 - test-coverage
 - typescript
