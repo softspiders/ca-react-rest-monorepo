@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should match the snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      data-testid="value-testid"
+    >
+      <button
+        data-testid="reset-button-testid"
+      >
+        Reset
+      </button>
+       undefined 
+      <button
+        data-testid="increment-button-testid"
+      >
+        +
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

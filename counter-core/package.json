@@ -1,0 +1,40 @@
+{
+  "name": "counter-core",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "@types/node": "12.7.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.2.0",
+    "@typescript-eslint/parser": "^2.2.0",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^26.1.0",
+    "jest-mock-extended": "^1.0.9",
+    "prettier": "^1.18.2",
+    "ts-jest": "^26.1.1",
+    "typescript": "3.9.5"
+  },
+  "keywords": [
+    "clean-architecture",
+    "jest",
+    "typescript"
+  ],
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true
+    }
+  },
+  "author": "https://github.com/AlexanderLapygin",
+  "license": "MIT"
+}

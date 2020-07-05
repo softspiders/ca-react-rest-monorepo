@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./dist",   /* Redirect output structure to the directory. */
+    "declaration": true,  /* Generates corresponding '.d.ts' file. */
+    "strict": true
+  }
+}
