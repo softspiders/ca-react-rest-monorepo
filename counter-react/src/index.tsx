@@ -1,7 +1,7 @@
 import * as serviceWorker from './serviceWorker'
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import App from './infrastructure/ui/App'
+import App from './ui/App'
 
 ReactDOM.render(<App />, document.getElementById('root'))
 

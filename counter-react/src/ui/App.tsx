@@ -1,6 +1,6 @@
 import React from 'react'
 import Counter from './Counter'
-import { AppFactory } from "../../AppFactory";
+import { AppFactory } from "../AppFactory";
 
 export const appFactory = new AppFactory()
 
