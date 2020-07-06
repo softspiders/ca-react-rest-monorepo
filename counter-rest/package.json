@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "preinstall": "cd ../counter-core && npm i",
+    "preinstall": "cd ../counter-core && yarn && yarn run build",
     "build": "tsc",
     "test": "jest",
     "test:coverage": "jest --coverage"

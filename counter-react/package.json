@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "preinstall": "cd ../counter-core && npm i && cd ../counter-rest && npm i",
-    "postinstall": "cd ../counter-core && npm run build && cd ../counter-rest && npm run build ",
+    "preinstall": "cd ../counter-core && yarn && yarn run build && cd ../counter-rest && yarn && yarn run build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

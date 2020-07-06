@@ -1,14 +1,15 @@
 module.exports = {
-  //  Typescript (ts-jest)
   preset: 'ts-jest',
   testEnvironment: 'node',
-  //  Coverage
+  "roots": [
+    "<rootDir>/src/"
+  ],
   "collectCoverageFrom": [
     "src/**/*.{js,ts}",
+    "!**/dist/**",
     "!**/node_modules/**",
     "!**/src/**/index.ts",
-    "!**/src/**/*.d.ts",
-    "not dead"
+    "!**/src/**/*.d.ts"
   ],
   "coverageReporters": [
     "text"
