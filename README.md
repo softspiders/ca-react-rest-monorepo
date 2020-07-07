@@ -4,18 +4,9 @@
     </a>
 </div>
 
-## Client application starter on the Clean Architecture
+## Client application starter on the Clean Architecture in monorepo
 
 It is the client part of the [Fullstack counter-app starter on React in TypeScript that follows Clean Architecture principles](https://github.com/softspiders/clean-architecture-counter-starters/tree/clean-architecture-counter-react-hooks-fullstack-jest-ts-starter).
-
----
-
-## Demo
-Demo and server are both hosted on the *Codesandbox*.
-
-In separate browser tabs do:
-1. [Start server](https://xg4qv.sse.codesandbox.io)
-2. [Start demo](https://pzpw2.csb.app/)
 
 ---
 
