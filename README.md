@@ -47,6 +47,14 @@ It is the client part of the [Fullstack counter-app starter on React in TypeScri
 
 ---
 
+## Install
+
+```sh
+yarn
+```
+
+---
+
 ## Running
 
 At first [start server](https://xg4qv.sse.codesandbox.io) on CodeSandbox, then do
@@ -58,12 +66,12 @@ npm start
 ## Run tests
 
 ```sh
-npm run test
+yarn test
 ```
 
 test with coverage:
 ```sh
-npm run test:coverage
+yarn test:coverage
 ```
 
 ---
