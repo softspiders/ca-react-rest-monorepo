@@ -1,3 +1,4 @@
+import fetch from 'cross-fetch'
 import { Counter, CounterIncrementOut } from 'counter-core'
 
 export class CounterIncrementRestGateway implements CounterIncrementOut {

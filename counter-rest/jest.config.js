@@ -15,6 +15,6 @@ module.exports = {
     "text"
   ],
   "setupFiles": [
-    "<rootDir>/src/setupTests.ts"
+    "./setupTests.ts"
   ]
 };

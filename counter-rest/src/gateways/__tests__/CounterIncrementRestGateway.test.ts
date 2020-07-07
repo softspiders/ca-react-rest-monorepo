@@ -7,6 +7,10 @@ describe('CounterIncrementOutRestGateway', () => {
   const COUNTER_VALUE = 99
   const COUNTER_ID = 1
 
+  beforeEach(() => {
+    fetchMock.doMock()
+  })
+
   afterEach(() => {
     fetchMock.resetMocks()
   })
