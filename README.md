@@ -64,13 +64,15 @@ Then, being in *counter-react*, do:
 npm start
 ```
 
-## Run tests (in each package: *counter-core*, *counter-rest*, *counter-react*)
+## Run tests
+
+In each package: *counter-core*, *counter-rest*, *counter-react* do:
 
 ```sh
 yarn test
 ```
 
-test with coverage (also in each package: *counter-core*, *counter-rest*, *counter-react*):
+test with coverage (also in each package: *counter-core*, *counter-rest*, *counter-react*) do:
 
 ```sh
 yarn test:coverage
