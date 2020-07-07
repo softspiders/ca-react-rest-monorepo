@@ -66,13 +66,13 @@ npm start
 
 ## Run tests
 
-In each package: *counter-core*, *counter-rest*, *counter-react* do:
+Being in each package: *counter-core*, *counter-rest*, *counter-react*, do:
 
 ```sh
 yarn test
 ```
 
-test with coverage (also in each package: *counter-core*, *counter-rest*, *counter-react*) do:
+For coverage testing (also being in each package: *counter-core*, *counter-rest*, *counter-react*) do:
 
 ```sh
 yarn test:coverage
