@@ -47,6 +47,8 @@
 
 ## Install
 
+Being in *counter-react*, do:
+
 ```sh
 yarn
 ```
