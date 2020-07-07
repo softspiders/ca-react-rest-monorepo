@@ -57,19 +57,21 @@ yarn
 
 ## Running
 
-At first [start server](https://xg4qv.sse.codesandbox.io) on CodeSandbox, then do
+At first [start server](https://xg4qv.sse.codesandbox.io) on CodeSandbox.
+Then, being in *counter-react*, do:
 
 ```sh
 npm start
 ```
 
-## Run tests
+## Run tests (in each package: *counter-core*, *counter-rest*, *counter-react*)
 
 ```sh
 yarn test
 ```
 
-test with coverage:
+test with coverage (also in each package: *counter-core*, *counter-rest*, *counter-react*):
+
 ```sh
 yarn test:coverage
 ```
