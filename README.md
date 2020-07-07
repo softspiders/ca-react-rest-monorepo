@@ -19,12 +19,6 @@ In separate browser tabs do:
 
 ---
 
-## Presentation
-
-[Starter for Clean Architecture](https://ca-react-rest-api-starter.vercel.app/)
-
----
-
 ## Feature tags
 - clean-architecture
 - client
@@ -62,9 +56,13 @@ In separate browser tabs do:
 
 ---
 
-## Running locally
+## Running
 
-See [that repository](https://github.com/softspiders/clean-architecture-counter-starters/tree/clean-architecture-counter-react-hooks-fullstack-jest-ts-starter)
+At first [start server](https://xg4qv.sse.codesandbox.io) on CodeSandbox, then do
+
+```sh
+npm start
+```
 
 ## Run tests
 
