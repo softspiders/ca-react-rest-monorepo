@@ -31,6 +31,10 @@
 
 - [**- monorepo**](https://github.com/softspiders/ca-react-rest-api-starter)
 
+## Children
+
+- [**+ lerna, yarn-workspaces**](https://github.com/softspiders/ca-react-rest-lerna)
+
 ---
 
 ## Author
